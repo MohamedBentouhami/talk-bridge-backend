@@ -13,9 +13,12 @@ const userRepository = {
             learning_language: userData.learning_language,
             bio: userData.bio,
         })
-        
+
         await newUser.save();
         return newUser;
+    },
+    getUserByEmail: async (email: string) => {
+        return await User.findOne({ email });
     }
 }
 

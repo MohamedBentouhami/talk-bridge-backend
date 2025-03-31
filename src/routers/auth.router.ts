@@ -6,5 +6,6 @@ import { userCreationValidation } from "../validators/user.validator";
 const authRouter = Router();
 
 authRouter.post("/signup", userCreationValidator(userCreationValidation), authController.signup )
+authRouter.post("/login", authController.login)
 
 export default authRouter;

@@ -12,6 +12,7 @@
   "author": "Mohamed Bentouhami Belhaj",
   "license": "ISC",
   "dependencies": {
+    "argon2": "^0.41.1",
     "cors": "^2.8.5",
     "express": "^5.0.1",
     "mongoose": "^8.13.1",
