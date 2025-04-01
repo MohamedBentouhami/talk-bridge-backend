@@ -20,6 +20,10 @@ const userRepository = {
         await newUser.save();
         return newUser;
     },
+    doesUserExist: async (id: string): Promise<boolean> => {
+        const user = await User.findById(id);
+        return user === undefined;
+    },
     getUserByEmail: async (email: string): Promise<IUser | null> => {
         return await User.findOne({ email });
     },
