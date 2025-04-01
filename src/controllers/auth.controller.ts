@@ -27,7 +27,7 @@ const authController = {
             res.status(403).json("Wrong credentials !");
             return;
         }
-        const token: string = await generateJWT(user.id);
+        const token: string = await generateJWT(user._id);
         res.json(token);
     },
     logout: async (req: Request, res: Response) => {

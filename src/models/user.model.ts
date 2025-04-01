@@ -1,8 +1,9 @@
 import mongoose from "mongoose";
 import { Languages } from "../@types/languages.enum";
+import { IUser } from "../@types/user.interface";
 
   
-const userSchema = new mongoose.Schema({
+const userSchema = new mongoose.Schema<IUser>({
     first_name: {
         type: String,
         required: true
@@ -44,5 +45,5 @@ const userSchema = new mongoose.Schema({
     timestamps: true
 })
 
-const User = mongoose.model('User', userSchema);
+const User = mongoose.model<IUser>('User', userSchema);
 export default User;

@@ -21,3 +21,21 @@ export function generateJWT(userId: string): Promise<string> {
         });
     })
 }
+
+export function decodeJWT(token: string): Promise<string> {
+    return new Promise((resolve, reject) => {
+        const { JWT_SECRET, JWT_ISSUER, JWT_AUDIENCE } = process.env;
+        const options: SignOptions = {
+            issuer: JWT_ISSUER,
+            audience: JWT_AUDIENCE
+        }
+        jwt.verify(token, JWT_SECRET, options, (error, data) => {
+            if(error || typeof data !== 'string'){
+                reject(error);
+                return;
+            }
+            resolve(data);
+        })
+
+    })
+}
