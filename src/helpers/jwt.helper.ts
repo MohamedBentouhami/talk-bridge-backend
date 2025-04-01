@@ -29,12 +29,12 @@ export function decodeJWT(token: string): Promise<string> {
             issuer: JWT_ISSUER,
             audience: JWT_AUDIENCE
         }
-        jwt.verify(token, JWT_SECRET, options, (error, data) => {
-            if(error || typeof data !== 'string'){
+        jwt.verify(token, JWT_SECRET, options, (error: any, data : any) => {
+            if(error){
                 reject(error);
                 return;
             }
-            resolve(data);
+            resolve(data.userId);
         })
 
     })
