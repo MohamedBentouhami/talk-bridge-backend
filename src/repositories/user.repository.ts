@@ -2,6 +2,7 @@ import { Languages } from "../@types/languages.enum";
 import type { UserCreationData } from "../@types/user"
 import { IUser } from "../@types/user.interface";
 import { UserDTO } from "../dto/user.dto";
+import Friend from "../models/friendship.model";
 import User from "../models/user.model"
 
 const userRepository = {
@@ -22,13 +23,14 @@ const userRepository = {
     },
     doesUserExist: async (id: string): Promise<boolean> => {
         const user = await User.findById(id);
-        return user === undefined;
+        return user !== undefined;
     },
     getUserByEmail: async (email: string): Promise<IUser | null> => {
         return await User.findOne({ email });
     },
-    getUsersByNativeLanguage: async (lg: Languages): Promise<UserDTO[]> => {
-        const users: IUser[] = await User.find({ native_language: lg });
+    getUsersByNativeLanguage: async (lg: Languages, userId: string): Promise<UserDTO[]> => {
+        const friends = await Friend.find({ user_id: userId });
+        const users: IUser[] = await User.find({ native_language: lg, _id: { $nin: friends } });
         return users.map((user) => new UserDTO(user));
     }
 }

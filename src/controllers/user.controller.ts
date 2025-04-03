@@ -8,7 +8,7 @@ const userController = {
         if (!Object.values(Languages).includes(lg as Languages)) {
             res.status(400).json({ error: "Invalid parameter !" })
         }
-        const users = await getUsersByLanguage(lg as Languages);
+        const users = await getUsersByLanguage(lg as Languages, req.userId!);
         res.json(users);
 
     }

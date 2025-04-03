@@ -7,6 +7,7 @@ declare global {
             JWT_SECRET: string;
             JWT_ISSUER: string;
             JWT_AUDIENCE: string;
+            CLIENT_URL: string;
         }
     }
 }

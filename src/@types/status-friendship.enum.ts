@@ -1,3 +1,3 @@
 export enum statusFriendship {
-    "isPending", "accepted", "blocked"
+    "isPending", "accepted", "refused"
 }
