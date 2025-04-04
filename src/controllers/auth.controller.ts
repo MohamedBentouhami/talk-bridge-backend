@@ -10,11 +10,10 @@ const authController = {
             res.status(500).json("Creation failed");
             return;
         }
-        // const profilePic = req.file;
-        // console.log(profilePic);
         const token: string = await generateJWT(newUser._id.toString());
         res.status(201).json({
             user: {
+                id: newUser._id,
                 first_name: newUser.first_name,
                 last_name: newUser.last_name,
                 learning_language: newUser.learning_language
@@ -41,6 +40,7 @@ const authController = {
         const token: string = await generateJWT(user._id);
         res.json({
             user: {
+                id: user._id,
                 first_name: user.first_name,
                 last_name: user.last_name,
                 learning_language: user.learning_language
