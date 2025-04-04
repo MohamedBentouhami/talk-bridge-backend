@@ -3,9 +3,9 @@ import { doesUserExist, getAllFriends } from "../services/user.service";
 import { addFriend, friendshipAlreadyExist, handleFriendshipRequest } from "../services/friend.service";
 
 const friendshipController = {
-    getAllFriends: (req: Request, res: Response) => {
+    getAllFriends: async (req: Request, res: Response) => {
         const userId = req.userId;
-        const friends = getAllFriends(userId!);
+        const friends = await getAllFriends(userId!);
         res.json(friends);
     },
     addFriend: async (req: Request, res: Response) => {

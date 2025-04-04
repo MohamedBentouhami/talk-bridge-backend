@@ -30,7 +30,8 @@ const userRepository = {
     },
     getUsersByNativeLanguage: async (lg: Languages, userId: string): Promise<UserDTO[]> => {
         const friends = await Friend.find({ user_id: userId });
-        const users: IUser[] = await User.find({ native_language: lg, _id: { $nin: friends } });
+        const friendIds = friends.map(friend => friend.friend_id);
+        const users: IUser[] = await User.find({ native_language: lg, _id: { $nin: friendIds } });
         return users.map((user) => new UserDTO(user));
     }
 }

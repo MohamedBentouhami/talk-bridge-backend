@@ -14,8 +14,6 @@ export async function signup(user: UserCreationData) {
 }
 
 export async function login(hashedPassword: string, password: string) {
-    console.log(hashedPassword, password);
-
     const connected = await argon2.verify(hashedPassword, password);
     return connected;
 }

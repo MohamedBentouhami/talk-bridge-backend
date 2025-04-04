@@ -39,6 +39,10 @@ const userSchema = new mongoose.Schema<IUser>({
     bio: {
         type: String,
         required: true,
+    },
+    profile_pict: {
+        type: String,
+        default: "/uploads/default-pict.png" 
     }
 
 }, {

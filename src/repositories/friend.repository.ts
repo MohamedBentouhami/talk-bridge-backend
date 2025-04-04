@@ -1,9 +1,11 @@
 import { statusFriendship } from "../@types/status-friendship.enum";
+import { FriendDTO } from "../dto/friend.dto";
 import Friendship from "../models/friendship.model";
 
 const friendshipRepository = {
     getAllFriends: async (userId: string) => {
-        return await Friendship.find({ user_id: userId }).populate('friend_id')
+        const friends = await Friendship.find({ user_id: userId }).populate('friend_id');
+        return friends.map((friend) => new FriendDTO(friend));
     },
     addFriend: async (userId: string, friendId: string) => {
         const friendship = new Friendship({
@@ -20,7 +22,7 @@ const friendshipRepository = {
         await friendship.save();
     },
     friendshipAlreadyExist: async (userId: string, friendId: string) => {
-        const friendShip = await Friendship.find({user_id : userId , friend_id: friendId});
+        const friendShip = await Friendship.find({ user_id: userId, friend_id: friendId });
         return friendShip.length > 0;
     },
     handleFriendshipRequest: async (userId: string, friendId: string, friendshipStatus: statusFriendship) => {

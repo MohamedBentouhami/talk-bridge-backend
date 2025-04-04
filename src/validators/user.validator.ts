@@ -32,7 +32,7 @@ export const userCreationValidation: z.ZodType<UserCreationData> = z.object({
     native_language: z.nativeEnum(Languages),
     learning_language: z.nativeEnum(Languages),
     bio: z.string({
-        required_error: "birthday is required"
+        required_error: "bio is required"
 
     }),
 })
