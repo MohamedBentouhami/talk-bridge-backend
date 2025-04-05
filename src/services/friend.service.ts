@@ -11,3 +11,7 @@ export async function handleFriendshipRequest(userId: string, friendId: string, 
 export async function friendshipAlreadyExist(userId: string, friendId: string): Promise<boolean>{
     return friendshipRepository.friendshipAlreadyExist(userId, friendId);
 }
+export async function getNewRequesters(userId: string){
+    return friendshipRepository.getNewRequesters(userId);
+}
+

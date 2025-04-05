@@ -1,5 +1,6 @@
 import { statusFriendship } from "../@types/status-friendship.enum";
 import { FriendDTO } from "../dto/friend.dto";
+import { RequesterDTO } from "../dto/requester.dto";
 import Friendship from "../models/friendship.model";
 
 const friendshipRepository = {
@@ -28,7 +29,14 @@ const friendshipRepository = {
     handleFriendshipRequest: async (userId: string, friendId: string, friendshipStatus: statusFriendship) => {
         await Friendship.updateOne({ user_id: userId }, { status: friendshipStatus });
         await Friendship.updateOne({ user_id: friendId }, { status: friendshipStatus });
+    },
+    getNewRequesters: async (userId: string) => {
+        const newRequesters = await Friendship.find({ friend_id: userId, status: statusFriendship.isPending }).populate('user_id');
+        console.log(newRequesters);
+        return  newRequesters.map((newRequester) => new RequesterDTO(newRequester));
     }
+
+
 
 
 }

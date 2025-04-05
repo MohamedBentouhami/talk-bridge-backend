@@ -7,6 +7,7 @@ export function userCreationValidator(userCreationValidation: ZodType) {
     return async function (req: Request & { user?: UserCreationData }, res: Response, next: NextFunction) {
         const { data, success, error } = userCreationValidation.safeParse(req.body);
         if (!success) {
+            console.log(error);
             res.status(422).json({ error: error?.flatten().fieldErrors })
             return;
         }

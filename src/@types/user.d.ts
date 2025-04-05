@@ -9,4 +9,5 @@ export type UserCreationData = {
     native_language: Languages;
     learning_language: Languages;
     bio: string;
+    profile_pict: string;
 }

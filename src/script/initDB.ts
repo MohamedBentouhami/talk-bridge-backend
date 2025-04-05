@@ -88,10 +88,13 @@ async function populateDb() {
 
     const friendshipsData = [
       { user_id: alice._id, friend_id: bob._id, status: "accepted" },  // Friendship status: accepted
+      { user_id: bob._id, friend_id: alice._id, status: "accepted" },  // Friendship status: accepted
       { user_id: bob._id, friend_id: charlie._id, status: "isPending" },  // Friendship status: pending
       { user_id: charlie._id, friend_id: david._id, status: "accepted" },  // Friendship status: accepted
+      { user_id: david._id, friend_id: charlie._id, status: "accepted" },  // Friendship status: accepted
       { user_id: david._id, friend_id: eva._id, status: "refused" },  // Friendship status: refused
       { user_id: eva._id, friend_id: alice._id, status: "accepted" },  // Friendship status: accepted
+      { user_id: alice._id, friend_id: eva._id, status: "accepted" },  // Friendship status: accepted
     ];
 
     // Insert friendships

@@ -15,34 +15,18 @@ const io = new Server(server, {
     }
 })
 
-const users: Record<string, string[]> = {};
+const usersSocketMap: Record<string, string> = {};
+
+export function getSocketId(userId: string) {
+    return usersSocketMap[userId];
+}
 
 io.on("connection", (socket) => {
     console.log('user connected', socket.id);
     socket.on("auth", (userId) => {
-        if (!users[userId]) {
-            users[userId] = [socket.id];
-        } else {
-            users[userId].push(socket.id);
-        }
-        console.log(users);
+        usersSocketMap[userId] = socket.id;
+        console.log("List connected", usersSocketMap);
     })
-
-    socket.on("disconnect", () => {
-        console.log("A user disconnected");
-    })
-
-    socket.on("sendFriendRequest", ({ friendId }) => {
-        if (!users[friendId]) {
-            console.log(`User with ID ${friendId} is not connected.`);
-            return;
-        }
-        console.log(`New friend request ${friendId}`);
-        users[friendId].forEach((socketId) => {
-            console.log(socketId)
-            io.to(socketId).emit("new_request", { "Message": "idk" });
-        })
-    });
 
     socket.on("disconnect", () => {
         console.log("User disconnected:", socket.id);

@@ -16,6 +16,7 @@ const userRepository = {
             native_language: userData.native_language,
             learning_language: userData.learning_language,
             bio: userData.bio,
+            profile_pict: userData.profile_pict
         })
 
         await newUser.save();

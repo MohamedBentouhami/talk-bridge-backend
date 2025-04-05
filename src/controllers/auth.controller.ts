@@ -5,6 +5,9 @@ import { generateJWT } from "../helpers/jwt.helper";
 const authController = {
     signup: async (req: Request, res: Response) => {
         const user = req.user;
+        if(req.file){
+            user!.profile_pict = req.file.filename;
+        }
         const newUser = await signup(user!);
         if (!newUser) {
             res.status(500).json("Creation failed");

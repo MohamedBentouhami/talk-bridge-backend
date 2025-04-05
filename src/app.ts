@@ -4,6 +4,7 @@ import cors, { CorsOptions } from "cors";
 import connectDB from './repositories/index';
 import mainRouter from './routers/index';
 import { app, server } from './socket';
+import path from "path";
 
 
 const { NODE_ENV, PORT, CLIENT_URL } = process.env;
@@ -11,6 +12,10 @@ const { NODE_ENV, PORT, CLIENT_URL } = process.env;
 
 app.use(morgan('tiny'));
 app.use(express.json());
+
+
+app.use(express.static(path.join('public')));
+
 
 const options : CorsOptions = {
     origin: CLIENT_URL
