@@ -12,7 +12,6 @@ export function generateJWT(userId: string): Promise<string> {
         const data = {
             userId
         }
-        console.log(data)
         jwt.sign(data, JWT_SECRET, options, (error, token) => {
             if (error || !token) {
                 reject(new Error("Token not generated"));

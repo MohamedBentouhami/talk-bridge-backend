@@ -1,8 +1,9 @@
 import { Languages } from "../@types/languages.enum";
+import { statusFriendship } from "../@types/status-friendship.enum";
 import type { UserCreationData } from "../@types/user"
 import { IUser } from "../@types/user.interface";
 import { UserDTO } from "../dto/user.dto";
-import Friend from "../models/friendship.model";
+import Friendship from "../models/friendship.model";
 import User from "../models/user.model"
 
 const userRepository = {
@@ -30,11 +31,25 @@ const userRepository = {
         return await User.findOne({ email });
     },
     getUsersByNativeLanguage: async (lg: Languages, userId: string): Promise<UserDTO[]> => {
-        const friends = await Friend.find({ user_id: userId });
-        const friendIds = friends.map(friend => friend.friend_id);
-        const users: IUser[] = await User.find({ native_language: lg, _id: { $nin: friendIds } });
-        return users.map((user) => new UserDTO(user));
+        const users: IUser[] = await User.find({ native_language: lg });
+        const partners: UserDTO[] = [];
+
+        for (const user of users) {
+            const friendship = await Friendship.findOne({ user_id: userId, friend_id: user._id });
+
+            if (friendship) {
+                if (friendship.status === statusFriendship.isPending) {
+                    partners.push(new UserDTO(user, true));
+                }
+                continue;
+
+            }
+            partners.push(new UserDTO(user, false));
+        }
+
+        return partners;
     }
+
 }
 
 export default userRepository

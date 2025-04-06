@@ -21,7 +21,7 @@ export async function login(hashedPassword: string, password: string) {
 export async function getUserByEmail(email: string): Promise<IUser | null> {
     return await userRepository.getUserByEmail(email);
 }
-export async function getUsersByLanguage(lg: Languages, userId: string): Promise<UserDTO[]> {
+export async function getUsersByLanguage(lg: Languages, userId: string): Promise<UserDTO[]> {    
     return await userRepository.getUsersByNativeLanguage(lg, userId);
 }
 

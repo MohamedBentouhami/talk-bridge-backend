@@ -5,7 +5,12 @@ export async function addFriend(userId: string, friendId: string) {
     await friendshipRepository.addFriend(userId, friendId);
 }
 export async function handleFriendshipRequest(userId: string, friendId: string, status: statusFriendship): Promise<void> {
-    await friendshipRepository.handleFriendshipRequest(userId, friendId, status);
+    if(status === statusFriendship.accepted){
+        await friendshipRepository.acceptFriendshipRequest(userId, friendId);
+    }
+    if(status === statusFriendship.refused){
+        await friendshipRepository.refuseFriendshipRequest(userId, friendId);
+    }
 }
 
 export async function friendshipAlreadyExist(userId: string, friendId: string): Promise<boolean>{
