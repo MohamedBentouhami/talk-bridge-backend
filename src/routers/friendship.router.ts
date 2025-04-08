@@ -8,6 +8,7 @@ const friendshipRouter = Router();
 friendshipRouter.get("/", authenticationMiddleware(), friendshipController.getAllFriends);
 friendshipRouter.get("/new-requesters", authenticationMiddleware(), friendshipController.getNewRequesters);
 friendshipRouter.post("/add", authenticationMiddleware(), friendCheckingExistence(), friendshipController.addFriend)
-friendshipRouter.patch("/update", authenticationMiddleware(), friendCheckingExistence(),friendshipController.friendRequestTreatment)
+friendshipRouter.patch("/accept", authenticationMiddleware(), friendCheckingExistence(), friendshipController.acceptFriendRequest)
+friendshipRouter.delete("/refuse", authenticationMiddleware(), friendCheckingExistence(), friendshipController.refusedFriendRequest)
 
 export default friendshipRouter;

@@ -31,12 +31,14 @@ const userRepository = {
         return await User.findOne({ email });
     },
     getUsersByNativeLanguage: async (lg: Languages, userId: string): Promise<UserDTO[]> => {
-        const users: IUser[] = await User.find({ native_language: lg });
+        // const users: IUser[] = await User.find({ native_language: lg });
+        const users: IUser[] = await User.find({
+            _id: { $ne: userId }
+        });
         const partners: UserDTO[] = [];
 
         for (const user of users) {
             const friendship = await Friendship.findOne({ user_id: userId, friend_id: user._id });
-
             if (friendship) {
                 if (friendship.status === statusFriendship.isPending) {
                     partners.push(new UserDTO(user, true));

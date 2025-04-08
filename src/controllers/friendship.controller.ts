@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import { doesUserExist, getAllFriends } from "../services/user.service";
-import { addFriend, friendshipAlreadyExist, getNewRequesters, handleFriendshipRequest } from "../services/friend.service";
+import { getAllFriends } from "../services/user.service";
+import { acceptFriendshipRequest, addFriend, friendshipAlreadyExist, getNewRequester, getNewRequesters, refuseFriendshipRequest } from "../services/friend.service";
 import { getSocketId, io } from "../socket";
 
 const friendshipController = {
@@ -22,27 +22,57 @@ const friendshipController = {
             res.status(409).json({ error: "Cannot add this friend" })
             return;
         }
-        await addFriend(userId!, friendId!);
+        const idFriendship = await addFriend(userId!, friendId!);
+        const newRequester = await getNewRequester(idFriendship);
         const socketId = getSocketId(friendId);
         console.log("socketId", socketId)
+        console.log("newRequester", newRequester);
+        console.log(friendId);
+
         if (socketId) {
-            io.to(socketId).emit("new_request", { "msg": "wanna be my friend ?" })
+            console.log("Notification")
+            io.to(socketId).emit("new_request", { newRequester })
         } else {
-            console.log("user no connected");
+            console.log("user not connected")
         }
         res.json({ "msg": "User add successfully" });
     },
-    friendRequestTreatment: async (req: Request, res: Response) => {
+    acceptFriendRequest: async (req: Request, res: Response) => {
         const userId = req.userId;
         const friendId = req.body.friend_id;
-        const status = req.body.status;
         const friendship = await friendshipAlreadyExist(userId!, friendId);
         if (!friendship) {
             res.status(409).json({ error: "This friendship doesn't exist" })
             return;
         }
-        await handleFriendshipRequest(userId!, friendId!, status);
-        res.json({ "msg": "User add successfully" });
+        const newFriend = await acceptFriendshipRequest(userId!, friendId!);
+        const socketId = getSocketId(friendId);
+        if (socketId) {
+            console.log("Notification")
+            io.to(socketId).emit("accepted_friend", { newFriend })
+        } else {
+            console.log("user not connected")
+        }
+
+        res.json({ "msg": "Friend request accepted" });
+    },
+    refusedFriendRequest: async (req: Request, res: Response) => {
+        const userId = req.userId;
+        const friendId = req.body.friend_id;
+        const friendship = await friendshipAlreadyExist(userId!, friendId);
+        if (!friendship) {
+            res.status(409).json({ error: "This friendship doesn't exist" })
+            return;
+        }
+        await refuseFriendshipRequest(userId!, friendId!);
+        const socketId = getSocketId(friendId);
+        if (socketId) {
+            console.log("Notification")
+            io.to(socketId).emit("cancel_friend", { userId })
+        } else {
+            console.log("user not connected")
+        }
+        res.json({ "msg": "Friend request refused" });
     }
 }
 

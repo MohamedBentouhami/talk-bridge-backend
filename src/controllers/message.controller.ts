@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
-import { doesUserExist, getMessages } from "../services/user.service";
+import { doesUserExist } from "../services/user.service";
+import { getMessages, sendMessage } from "../services/message.service";
 
 const messageController = {
     getMessages: async (req: Request, res: Response) => {
@@ -11,6 +12,13 @@ const messageController = {
         const userId = req.userId;
         const messages = await getMessages(userId!, friendId);
         res.json(messages);
+    },
+    sendMessage: async (req: Request, res: Response) => {
+        const friendId = req.body;
+        const userId = req.body;
+        const contentMsg = req.body.message;
+        await sendMessage(userId, friendId, contentMsg);
+        res.status(201).json("Message created successfully");
     }
 }
 

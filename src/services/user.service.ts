@@ -25,10 +25,6 @@ export async function getUsersByLanguage(lg: Languages, userId: string): Promise
     return await userRepository.getUsersByNativeLanguage(lg, userId);
 }
 
-export async function getMessages(userId: string, userId2: string) {
-    return await messageRepository.getMessagesBetweenFriends(userId, userId2);
-}
-
 export async function doesUserExist(id: string) {
     return await userRepository.doesUserExist(id);
 }
