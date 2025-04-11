@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { doesUserExist } from "../services/user.service";
-import { getMessages, sendMessage } from "../services/message.service";
+import { correctionMsg, getMessages, sendMessage } from "../services/message.service";
+import { getSocketId, io } from "../socket";
 
 const messageController = {
     getMessages: async (req: Request, res: Response) => {
@@ -14,11 +15,34 @@ const messageController = {
         res.json(messages);
     },
     sendMessage: async (req: Request, res: Response) => {
-        const friendId = req.body;
-        const userId = req.body;
+        const friendId = req.body.friend_id;
+        const userId = req.userId!;
         const contentMsg = req.body.message;
-        await sendMessage(userId, friendId, contentMsg);
-        res.status(201).json("Message created successfully");
+        const newMessage = await sendMessage(userId, friendId, contentMsg);
+        const socketId = getSocketId(friendId);
+        if (socketId) {
+            console.log("Notification");
+            io.to(socketId).emit("new_message", { newMessage })
+        } else {
+            console.log("User not connected")
+        }
+        res.status(201).json(newMessage);
+    },
+    addCorrection: async (req: Request, res: Response) => {
+        const correctionProvided = req.body.correction_provided;
+        const messageId = req.body.message_id;
+
+        const updatedMsg = await correctionMsg(messageId, correctionProvided);
+        const socketId = getSocketId(updatedMsg.senderId);
+        if (socketId) {
+            console.log("Notification");
+            io.to(socketId).emit("add_correction", { updatedMsg })
+        } else {
+            console.log("User not connected")
+        }
+
+        res.json(updatedMsg)
+
     }
 }
 

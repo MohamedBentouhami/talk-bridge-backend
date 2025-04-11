@@ -25,7 +25,6 @@ app.use(cors(options));
 
 app.use("/api", mainRouter);
 
-
 await connectDB();
 
 server.listen(PORT, () => {

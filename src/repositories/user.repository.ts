@@ -31,7 +31,6 @@ const userRepository = {
         return await User.findOne({ email });
     },
     getUsersByNativeLanguage: async (lg: Languages, userId: string): Promise<UserDTO[]> => {
-        // const users: IUser[] = await User.find({ native_language: lg });
         const users: IUser[] = await User.find({
             _id: { $ne: userId }
         });
@@ -46,6 +45,8 @@ const userRepository = {
                 continue;
 
             }
+            // to skip if is already try to add him
+            // if (friendship2 && friendship2.status === statusFriendship.isPending) continue
             partners.push(new UserDTO(user, false));
         }
 

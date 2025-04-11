@@ -16,6 +16,14 @@ const messageSchema = new mongoose.Schema<IMessage>({
     content: {
         type: String,
         required: true,
+    },
+    has_been_corrected:{
+        type: Boolean,
+        default: false
+    },
+    correction_provided:{
+        type: String,
+        default: null
     }
 }, {
     timestamps: true

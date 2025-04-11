@@ -19,7 +19,8 @@ const authController = {
                 id: newUser._id,
                 first_name: newUser.first_name,
                 last_name: newUser.last_name,
-                learning_language: newUser.learning_language
+                learning_language: newUser.learning_language,
+                profile_pict: newUser.profile_pict
             },
             token: token,
         });
@@ -46,7 +47,8 @@ const authController = {
                 id: user._id,
                 first_name: user.first_name,
                 last_name: user.last_name,
-                learning_language: user.learning_language
+                learning_language: user.learning_language,
+                profile_pict: user.profile_pict
             },
             token: token,
         });

@@ -7,5 +7,6 @@ const messageRouter = Router();
 
 messageRouter.get("/:friend_id", authenticationMiddleware(), messageController.getMessages);
 messageRouter.post("/add", authenticationMiddleware(), friendCheckingExistence(), messageController.sendMessage);
+messageRouter.patch("/add-correction", authenticationMiddleware(), messageController.addCorrection)
 
 export default messageRouter;

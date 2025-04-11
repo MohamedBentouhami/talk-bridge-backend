@@ -9,6 +9,7 @@ export async function acceptFriendshipRequest(userId: string, friendId: string):
     return await friendshipRepository.acceptFriendshipRequest(userId, friendId);
 }
 export async function refuseFriendshipRequest(userId: string, friendId: string): Promise<void> {
+    console.log("test")
     await friendshipRepository.refuseFriendshipRequest(userId, friendId);
 
 }

@@ -16,7 +16,7 @@ const friendshipController = {
     },
     addFriend: async (req: Request, res: Response) => {
         const userId = req.userId;
-        const friendId = req.body.friend_id;
+        const friendId = req.body.friend_id; // use middleware ??
         const friendship = await friendshipAlreadyExist(userId!, friendId);
         if (friendship) {
             res.status(409).json({ error: "Cannot add this friend" })
