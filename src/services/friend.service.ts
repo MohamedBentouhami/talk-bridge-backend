@@ -1,4 +1,3 @@
-import { statusFriendship } from "../@types/status-friendship.enum";
 import { FriendDTO } from "../dto/friend.dto";
 import friendshipRepository from "../repositories/friend.repository";
 

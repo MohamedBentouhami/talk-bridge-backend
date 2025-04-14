@@ -1,6 +1,6 @@
 import { Languages } from "../@types/languages.enum";
 import { statusFriendship } from "../@types/status-friendship.enum";
-import type { UserCreationData } from "../@types/user"
+import type { UserCreationData, UserUpdateData } from "../@types/user"
 import { IUser } from "../@types/user.interface";
 import { UserDTO } from "../dto/user.dto";
 import Friendship from "../models/friendship.model";
@@ -30,7 +30,7 @@ const userRepository = {
     getUserByEmail: async (email: string): Promise<IUser | null> => {
         return await User.findOne({ email });
     },
-    getUsersByNativeLanguage: async (lg: Languages, userId: string): Promise<UserDTO[]> => {
+    getPotentialPartners: async (userId: string): Promise<UserDTO[]> => {
         const users: IUser[] = await User.find({
             _id: { $ne: userId }
         });
@@ -45,13 +45,26 @@ const userRepository = {
                 continue;
 
             }
-            // to skip if is already try to add him
-            // if (friendship2 && friendship2.status === statusFriendship.isPending) continue
             partners.push(new UserDTO(user, false));
         }
 
         return partners;
+    },
+    getUser: async (id: string): Promise<UserDTO> => {
+        const user: IUser | null = await User.findById(id);
+        return new UserDTO(user!, false);
+    },
+    updateUser: async (userUpdated: UserUpdateData, userId: string) => {
+        await User.findOneAndUpdate({ _id: userId }, {
+            first_name: userUpdated.first_name,
+            last_name: userUpdated.last_name,
+            native_language: userUpdated.native_language,
+            learning_language: userUpdated.learning_language,
+            bio: userUpdated.bio,
+            profile_pict: userUpdated.profile_pict
+        });
     }
+
 
 }
 

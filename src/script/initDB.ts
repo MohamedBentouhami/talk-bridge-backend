@@ -20,7 +20,8 @@ const usersData = [
   { first_name: 'Mohamed', last_name: 'Ben Ali', email: 'mohamed@example.com', password: 'password123', birthday: '2001-02-28', native_language: "ar", learning_language: "en", bio: 'Football fan and aspiring entrepreneur.', profile_pict: "boy-profile.jpg" },
   { first_name: 'Lena', last_name: 'Schmidt', email: 'lena@example.com', password: 'password123', birthday: '1995-06-14', native_language: "de", learning_language: "en", bio: 'Fashion enthusiast and travel blogger.', profile_pict: "girl-profile.jpg" },
   { first_name: 'John', last_name: 'Doe', email: 'john@example.com', password: 'password123', birthday: '1985-04-05', native_language: "en", learning_language: "fr", bio: 'Always seeking new challenges and opportunities.', profile_pict: "boy-profile.jpg" },
-  { first_name: 'Mia', last_name: 'Kumar', email: 'mia@example.com', password: 'password123', birthday: '1997-10-21', native_language: "fr", learning_language: "en", bio: 'Technology and science enthusiast.', profile_pict: "girl-profile.jpg" }
+  { first_name: 'Mia', last_name: 'Kumar', email: 'mia@example.com', password: 'password123', birthday: '1997-10-21', native_language: "fr", learning_language: "en", bio: 'Technology and science enthusiast.', profile_pict: "girl-profile.jpg" },
+  { first_name: 'Douaa', last_name: 'Vampire', email: 'douaa@example.com', password: 'password123', birthday: '2003-09-25', native_language: "ar", learning_language: "fr", bio: 'Technology and science enthusiast.', profile_pict: "girl-profile.jpg" }
 ];
 
 

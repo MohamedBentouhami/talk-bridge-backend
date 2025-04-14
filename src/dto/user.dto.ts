@@ -9,6 +9,7 @@ export class UserDTO {
     targetLanguage: string;
     bio: string;
     isPending: boolean;
+    email: string;
     constructor(user : IUser, isPending: boolean) {
         this.id = user._id;
         this.firstName = user.first_name;
@@ -18,5 +19,6 @@ export class UserDTO {
         this.targetLanguage = user.learning_language;
         this.bio = user.bio;
         this.isPending = isPending;
+        this.email = user.email
     }
 }

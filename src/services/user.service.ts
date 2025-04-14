@@ -1,5 +1,5 @@
 import { Languages } from "../@types/languages.enum";
-import type { UserCreationData } from "../@types/user"
+import type { UserCreationData, UserUpdateData } from "../@types/user"
 import { IUser } from "../@types/user.interface";
 import { UserDTO } from "../dto/user.dto";
 import friendshipRepository from "../repositories/friend.repository";
@@ -21,8 +21,8 @@ export async function login(hashedPassword: string, password: string) {
 export async function getUserByEmail(email: string): Promise<IUser | null> {
     return await userRepository.getUserByEmail(email);
 }
-export async function getUsersByLanguage(lg: Languages, userId: string): Promise<UserDTO[]> {    
-    return await userRepository.getUsersByNativeLanguage(lg, userId);
+export async function getPotentialPartners(userId: string): Promise<UserDTO[]> {
+    return await userRepository.getPotentialPartners(userId);
 }
 
 export async function doesUserExist(id: string) {
@@ -31,4 +31,12 @@ export async function doesUserExist(id: string) {
 
 export async function getAllFriends(userId: string) {
     return await friendshipRepository.getAllFriends(userId);
+}
+
+export async function getUser(userId: string): Promise<UserDTO> {
+    return await userRepository.getUser(userId);
+}
+
+export async function updateData(userUpdated : UserUpdateData, userId : string){
+    await userRepository.updateUser(userUpdated, userId)
 }

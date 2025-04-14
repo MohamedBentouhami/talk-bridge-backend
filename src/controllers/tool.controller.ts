@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import { correctionText, rephraseText } from "../services/tool.service";
 
 const toolController = {
     getTranslation: async (req: Request, res: Response) => {
@@ -12,12 +13,24 @@ const toolController = {
                 throw new Error("Error fetching")
             }
             const data = await response.json();
+            console.log(data.responseData.translatedText)
             res.json(data.responseData.translatedText);
         } catch (error) {
             res.status(500).send('Error fetching translation');
         }
 
     },
+    getCorrection: async (req: Request, res: Response) => {
+        const { text, lg } = req.body;
+        const answer = await correctionText(text, lg);
+        res.json(answer);
+    },
+    rephraseText: async (req: Request, res: Response) => {
+        const { text, lg } = req.body;
+        const answer = await rephraseText(text, lg);
+        console.log(answer)
+        res.json(answer);
+    }
 
 }
 

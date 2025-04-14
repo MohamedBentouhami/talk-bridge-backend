@@ -8,6 +8,9 @@ declare global {
             JWT_ISSUER: string;
             JWT_AUDIENCE: string;
             CLIENT_URL: string;
+            URL_TRANSLATION_API: string;
+            OPEN_AI_KEY: string;
+            BASE_URL:string;
         }
     }
 }

@@ -11,3 +11,11 @@ export type UserCreationData = {
     bio: string;
     profile_pict: string;
 }
+export type UserUpdateData = {
+    first_name: string;
+    last_name: string;
+    native_language: Languages;
+    learning_language: Languages;
+    bio: string;
+    profile_pict ?: string;
+}

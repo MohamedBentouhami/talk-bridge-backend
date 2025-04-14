@@ -7,7 +7,8 @@ export class MessageDTO {
     content: string;
     hasBeenCorrected : Boolean;
     createdAt?: Date;
-    correctionProvided? : string; 
+    correctionProvided? : string;
+    receiverName?: string;
     constructor(message: IMessage) {
         this.id = message._id;
         this.senderId = message.sender_id.toString();
