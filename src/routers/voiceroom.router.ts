@@ -6,7 +6,8 @@ const voiceroomRouter = Router();
 
 voiceroomRouter.get("/", voiceroomController.getAllVoiceroom);
 voiceroomRouter.post("/add", authenticationMiddleware(), voiceroomController.addVoiceroom);
-voiceroomRouter.patch("/close", voiceroomController.closeVoiceroom);
+voiceroomRouter.patch("/join", authenticationMiddleware(), voiceroomController.joinVoiceroom);
+voiceroomRouter.patch("/close", authenticationMiddleware(), voiceroomController.closeVoiceroom);
 
 
 export default voiceroomRouter;

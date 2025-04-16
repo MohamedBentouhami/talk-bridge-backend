@@ -3,6 +3,7 @@ import User from '../models/user.model';
 import Friendship from '../models/friendship.model';
 import argon2 from 'argon2';
 import Message from '../models/message.model';
+import Voiceroom from '../models/voiceroom.model';
 
 const usersData = [
   { first_name: 'Alice', last_name: 'Dupont', email: 'alice@example.com', password: 'password123', birthday: '1998-01-15', native_language: "fr", learning_language: "en", bio: 'I love traveling and learning new languages.', profile_pict: "girl-profile.jpg" },
@@ -153,10 +154,67 @@ async function populateDb() {
         timestamp: new Date(),
       },
     ];
-    
+
     await Message.insertMany(messagesData);
     console.log('Messages insérés avec succès.');
+
+
+    const voiceRoomsData = [
+      {
+        title: "French-English Conversation",
+        host_id: alice._id,  // Use ObjectId directly
+        participants: [alice._id, bob._id, eva._id],  // Use ObjectId references
+        is_active: true,
+        language_used: "fr-en"
+      },
+      {
+        title: "Spanish Practice Group",
+        host_id: sofia._id,
+        participants: [sofia._id, david._id, carlos._id],
+        is_active: true,
+        language_used: "es"
+      },
+      {
+        title: "Tech Talk in English",
+        host_id: mohamed._id,
+        participants: [mohamed._id, bob._id, charlie._id],
+        is_active: false,
+        language_used: "en"
+      },
+      {
+        title: "Japanese-French Exchange",
+        host_id: yuki._id,
+        participants: [yuki._id, fatima._id],
+        is_active: true,
+        language_used: "ja-fr"
+      },
+      {
+        title: "Italian Learning Hub",
+        host_id: mia._id,
+        participants: [mia._id, sofia._id, lucas._id],
+        is_active: true,
+        language_used: "it"
+      },
+      {
+        title: "Arabic Conversation",
+        host_id: fatima._id,
+        participants: [fatima._id, mohamed._id],
+        is_active: false,
+        language_used: "ar"
+      },
+      {
+        title: "German Learning",
+        host_id: lena._id,
+        participants: [lena._id, david._id],
+        is_active: true,
+        language_used: "de"
+      }
+    ];
     
+    await Voiceroom.insertMany(voiceRoomsData);
+    console.log('Voice rooms inserted successfully.');
+
+
   } catch (error) {
     console.error('Erreur lors de l\'insertion des données :', error);
   }

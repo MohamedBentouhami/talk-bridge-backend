@@ -2,17 +2,18 @@ import mongoose from "mongoose";
 
 const voiceroomSchema = new mongoose.Schema({
     title: {
-        type: String, 
+        type: String,
         required: true,
     },
     host_id: {
-        type:String,
+        type: String,
         required: true
     },
-    participants:{
-        type: Array
-    },
-    is_active:{
+    participants: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+    }],
+    is_active: {
         type: Boolean,
         required: true
     },
@@ -21,6 +22,8 @@ const voiceroomSchema = new mongoose.Schema({
         required: true
     }
 
+}, {
+    timestamps: true
 })
 
 const Voiceroom = mongoose.model('Voiceroom', voiceroomSchema);

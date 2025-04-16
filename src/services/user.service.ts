@@ -1,9 +1,7 @@
-import { Languages } from "../@types/languages.enum";
 import type { UserCreationData, UserUpdateData } from "../@types/user"
 import { IUser } from "../@types/user.interface";
 import { UserDTO } from "../dto/user.dto";
 import friendshipRepository from "../repositories/friend.repository";
-import messageRepository from "../repositories/message.repository";
 import userRepository from "../repositories/user.repository"
 import * as argon2 from "argon2";
 
